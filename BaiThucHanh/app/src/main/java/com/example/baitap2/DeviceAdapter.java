@@ -14,7 +14,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import java.util.List;
 
 public class DeviceAdapter extends ArrayAdapter<Device> {
-    private IOnItemClickListener listener;
+    private final IOnItemClickListener listener;
 
     public DeviceAdapter(@NonNull Context context, int resource, @NonNull List<Device> objects, IOnItemClickListener listener) {
         super(context, resource, objects);
