@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
         setContentView(R.layout.activity_main);
 
         db = new DatabaseHandler(this);
-        contacts = db.getAll();
 
         initView();
     }
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
     }
 
     private void updateAdapter() {
+        contacts = db.getAll();
         Collections.sort(contacts);
         adapter = new HoTenSV_Adapter(this, R.id.listView, contacts, this);
         listView.setAdapter(adapter);
@@ -65,9 +65,6 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == REQUEST_ADD) {
-            Contact_TenSV contact = ((Contact_TenSV) data.getSerializableExtra("contact"));
-            contacts.add(contact);
-            db.insert(contact);
             updateAdapter();
         }
     }

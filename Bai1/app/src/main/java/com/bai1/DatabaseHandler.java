@@ -60,15 +60,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public void insert(Contact_TenSV contact) {
+    /**
+     * @return -1 nếu insert lỗi, còn lại là thành công
+     */
+    public long insert(Contact_TenSV contact) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(KEY_ID, contact.getId());
         value.put(KEY_NAME, contact.getName());
         value.put(KEY_PHONE_NUMBER, contact.getPhoneNumber());
 
-        db.insert(TABLE_NAME, null, value);
+        long res = db.insert(TABLE_NAME, null, value);
         db.close();
+
+        return res;
     }
 
     private void insertDefault(SQLiteDatabase db, Contact_TenSV contact) {
@@ -80,15 +85,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, value);
     }
 
-    public void update(Contact_TenSV contact) {
+    /**
+     * @return -1 nếu update lỗi, còn lại là thành công
+     */
+    public int update(Contact_TenSV contact) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
         value.put(KEY_ID, contact.getId());
         value.put(KEY_NAME, contact.getName());
         value.put(KEY_PHONE_NUMBER, contact.getPhoneNumber());
 
-        db.update(TABLE_NAME, value, KEY_ID + "=?", new String[]{String.valueOf(contact.getId())});
+        int res = db.update(TABLE_NAME, value, KEY_ID + "=?", new String[]{String.valueOf(contact.getId())});
         db.close();
+
+        return res;
     }
 
     public void delete(int id) {
