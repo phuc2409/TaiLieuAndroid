@@ -21,6 +21,7 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements IOnItemClickListener {
     public static final int REQUEST_ADD = 111;
+    public static final int REQUEST_EDIT = 222;
 
     private ListView listView;
     private FloatingActionButton floatingActionBtn;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == REQUEST_ADD) {
+        if (resultCode == RESULT_OK && (requestCode == REQUEST_ADD || requestCode == REQUEST_EDIT)) {
             updateAdapter();
         }
     }
@@ -92,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
                         updateAdapter();
                     })
                     .setNegativeButton(android.R.string.cancel, null).show();
+        }
+        else if (item.getItemId() == R.id.itemEdit) {
+            Intent intent = new Intent(this, EditContactActivity.class);
+            intent.putExtra("contact", contacts.get(position));
+            startActivityForResult(intent, REQUEST_EDIT);
         }
 
         return super.onContextItemSelected(item);
