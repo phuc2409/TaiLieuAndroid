@@ -2,6 +2,7 @@ package com.bai1;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -86,7 +86,15 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
         int position = info.position;
 
         if (item.getItemId() == R.id.itemDelete) {
-            Toast.makeText(this, position + "", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("Confirm")
+                    .setMessage("Họ tên sinh viên wants to delete?")
+                    .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
+                        db.delete(contacts.get(position).getId());
+                        contacts.remove(position);
+                        updateAdapter();
+                    })
+                    .setNegativeButton(android.R.string.cancel, null).show();
         }
 
         return super.onContextItemSelected(item);
