@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
     public static final int REQUEST_ADD = 111;
     public static final int REQUEST_EDIT = 222;
 
+    private EditText editText;
     private ListView listView;
     private FloatingActionButton floatingActionBtn;
 
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
     }
 
     private void initView() {
+        editText = findViewById(R.id.editText);
         listView = findViewById(R.id.listView);
         floatingActionBtn = findViewById(R.id.floatingActionButton);
 
@@ -51,12 +56,44 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
             startActivityForResult(intent, REQUEST_ADD);
         });
 
+//        Tìm kiếm
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                ArrayList<Contact_TenSV> newContacts = new ArrayList<>();
+                for (Contact_TenSV i : contacts) {
+                    if (i.getName().contains(editable.toString())) {
+                        newContacts.add(i);
+                    }
+                }
+                updateAdapter(newContacts);
+            }
+        });
+
         registerForContextMenu(listView);
     }
 
     private void updateAdapter() {
         contacts = db.getAll();
         Collections.sort(contacts);
+        adapter = new HoTenSV_Adapter(this, R.id.listView, contacts, this);
+        listView.setAdapter(adapter);
+    }
+
+    /**
+     * Cập nhật adapter dùng cho tìm kiếm
+     */
+    private void updateAdapter(ArrayList<Contact_TenSV> contacts) {
         adapter = new HoTenSV_Adapter(this, R.id.listView, contacts, this);
         listView.setAdapter(adapter);
     }
