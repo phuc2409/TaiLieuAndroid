@@ -35,6 +35,13 @@ public class HoTenSV_Adapter extends ArrayAdapter<Contact_TenSV> {
         TextView tvName = currentItemView.findViewById(R.id.tvName);
         TextView tvPhoneNumber = currentItemView.findViewById(R.id.tvPhoneNumber);
 
+        //todo: mở đoạn này khi cần sử dụng vì khi dùng sẽ không hiện được context menu nữa
+        //Sự kiện khi nhấn giữ một phần tử listview
+//        currentItemView.setOnLongClickListener(view -> {
+//            listener.onClick(contact, position);
+//            return true;
+//        });
+
         tvId.setText(String.valueOf(contact.getId()));
         tvName.setText(contact.getName());
         tvPhoneNumber.setText(contact.getPhoneNumber());

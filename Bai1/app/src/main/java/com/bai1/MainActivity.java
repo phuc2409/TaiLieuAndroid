@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
             }
         });
 
+        //long press hiện context menu
         registerForContextMenu(listView);
     }
 
@@ -107,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
         }
     }
 
+    /**
+     * Hiện context menu
+     */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -115,8 +120,12 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
         inflater.inflate(R.menu.menu_context, menu);
     }
 
+    /**
+     * Xử lý ấn vào item trong menu
+     */
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        //lấy position của item được nhấn giữ
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int position = info.position;
 
@@ -142,6 +151,6 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
 
     @Override
     public void onClick(Contact_TenSV contact, int position) {
-
+        Toast.makeText(this, contact.getName(), Toast.LENGTH_SHORT).show();
     }
 }
