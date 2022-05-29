@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements IOnItemClickListe
     }
 
     @Override
-    public void onClick(Contact_TenSV contact, int position) {
+    public void onItemClick(Contact_TenSV contact, int position) {
         Toast.makeText(this, contact.getName(), Toast.LENGTH_SHORT).show();
     }
 }

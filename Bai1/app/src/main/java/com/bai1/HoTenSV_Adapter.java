@@ -38,7 +38,7 @@ public class HoTenSV_Adapter extends ArrayAdapter<Contact_TenSV> {
         //todo: mở đoạn này khi cần sử dụng vì khi dùng sẽ không hiện được context menu nữa
         //Sự kiện khi nhấn giữ một phần tử listview
 //        currentItemView.setOnLongClickListener(view -> {
-//            listener.onClick(contact, position);
+//            listener.onItemClick(contact, position);
 //            return true;
 //        });
 
