@@ -11,7 +11,6 @@ import android.widget.Toast;
 public class AddContactActivity extends AppCompatActivity {
     private DatabaseHandler db;
 
-    private EditText etId;
     private EditText etName;
     private EditText etPhoneNumber;
     private Button btnAdd;
@@ -28,15 +27,14 @@ public class AddContactActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        etId = findViewById(R.id.etId);
         etName = findViewById(R.id.etName);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         btnAdd = findViewById(R.id.btnAdd);
         btnBack = findViewById(R.id.btnBack);
 
         btnAdd.setOnClickListener(view -> {
-            if (!etId.getText().toString().isEmpty() && !etName.getText().toString().isEmpty() && !etPhoneNumber.getText().toString().isEmpty()) {
-                Contact_TenSV contact = new Contact_TenSV(Integer.parseInt(etId.getText().toString()), etName.getText().toString(), etPhoneNumber.getText().toString());
+            if (!etName.getText().toString().isEmpty() && !etPhoneNumber.getText().toString().isEmpty()) {
+                Contact_TenSV contact = new Contact_TenSV(0, etName.getText().toString(), etPhoneNumber.getText().toString());
 
                 long res = db.insert(contact);
                 if (res == -1) {

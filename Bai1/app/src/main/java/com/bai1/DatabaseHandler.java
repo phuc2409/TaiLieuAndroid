@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "HoTenSV_Sqlite";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TABLE_NAME = "Contact_TenSV";
 
     private static final String KEY_ID = "id";
@@ -23,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = String.format("CREATE TABLE if not exists %s(%s INTEGER primary key, %s TEXT, %s TEXT)", TABLE_NAME, KEY_ID, KEY_NAME, KEY_PHONE_NUMBER);
+        String createTable = String.format("CREATE TABLE if not exists %s(%s INTEGER primary key autoincrement, %s TEXT, %s TEXT)", TABLE_NAME, KEY_ID, KEY_NAME, KEY_PHONE_NUMBER);
         db.execSQL(createTable);
 
         insertDefault(db, new Contact_TenSV(1, "Nam", "0987983793"));
@@ -66,7 +66,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public long insert(Contact_TenSV contact) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
-        value.put(KEY_ID, contact.getId());
         value.put(KEY_NAME, contact.getName());
         value.put(KEY_PHONE_NUMBER, contact.getPhoneNumber());
 
@@ -78,7 +77,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void insertDefault(SQLiteDatabase db, Contact_TenSV contact) {
         ContentValues value = new ContentValues();
-        value.put(KEY_ID, contact.getId());
         value.put(KEY_NAME, contact.getName());
         value.put(KEY_PHONE_NUMBER, contact.getPhoneNumber());
 
